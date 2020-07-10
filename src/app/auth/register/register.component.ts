@@ -13,6 +13,7 @@ import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  errors:any[]=[];
 
   separateDialCode = true;
 	SearchCountryField = SearchCountryField;
@@ -55,10 +56,10 @@ export class RegisterComponent implements OnInit {
   register(){
     this.auth.register(this.registerForm.value).subscribe(
       (userData)=>{
-        console.log(userData) 
+        console.log(userData);
       },
-      (error:HttpErrorResponse)=>{
-        console.log(error);
+      (errorResponse:HttpErrorResponse)=>{
+        this.errors = errorResponse.error.errors;
        } )
       
   }  
