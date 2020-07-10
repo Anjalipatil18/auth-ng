@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import{FormsModule,ReactiveFormsModule} from '@angular/forms';
 import{Routes,RouterModule}  from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgxIntlTelInputModule  } from "ngx-intl-tel-input";
+
 
 import{AuthComponent} from './auth.component';
 import{RegisterComponent} from './register/register.component';
@@ -21,7 +23,8 @@ const routes:Routes=[
     RouterModule.forRoot(routes),
     FormsModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxIntlTelInputModule
   ],
   providers: [
     AuthService

@@ -9,7 +9,8 @@
             <input type="text"
                    class="form-control"
                    id="firstName"
-                   formControlName="firstName">
+                   formControlName="firstName"
+                   required>
           </div>
 
           <div class="form-group">
@@ -17,15 +18,29 @@
             <input type="text"
                    class="form-control"
                    id="lastName"
-                   formControlName="lastName">
+                   formControlName="lastName"
+                   required>
+            
           </div>
 
           <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text"
-                   class="form-control"
-                   id="phone"
-                   formControlName="phone">
+              <label for="phone">Phone</label>
+                <ngx-intl-tel-input
+                  [inputId]="'adsasd'"
+                  [cssClass]="'custom'" 
+                  [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="false" 
+                  [enablePlaceholder]="true" 
+                  [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                  [selectFirstCountry]="false" 
+                  [selectedCountryISO]="CountryISO.India"
+                  [maxLength]="15" 
+                  [tooltipField]="TooltipLabel.Name" 
+                  [phoneValidation]="true" 
+                  [separateDialCode]="separateDialCode"
+                  name="phone" formControlName="phone">
+                </ngx-intl-tel-input>
           </div>
 
           <div class="form-group">
@@ -35,17 +50,17 @@
                    id="email"
                    formControlName="email">
 
-              <div *ngIf="isInvalidForm('email')"
-                   class="alert alert-danger">
+            <div *ngIf="isInvalidForm('email')"
+              class="alert alert-danger">
      
-                  <div *ngIf="isRequired('email')">
-                     email is required.
-                  </div>
-     
-                  <div *ngIf="loginForm.controls['email'].errors.pattern">
-                     Must be valid email format!
-                  </div>
+              <div *ngIf="isRequired('email')">
+                  email is required.
               </div>
+  
+              <div *ngIf="registerForm.controls['email'].errors.pattern">
+                  Must be valid email format!
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="password">Password</label>

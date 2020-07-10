@@ -9,6 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './/app-routing.module';
 import{AuthModule} from './auth/auth.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes:Routes=[
   {path:'',redirectTo:'/register',pathMatch:'full'}
@@ -24,7 +25,8 @@ const routes:Routes=[
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AuthModule
+    AuthModule,
+    BrowserAnimationsModule
   ],
   providers: [
   ],
