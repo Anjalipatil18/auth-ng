@@ -50,7 +50,11 @@
                   [tooltipField]="TooltipLabel.Name" 
                   [phoneValidation]="true" 
                   [separateDialCode]="separateDialCode"
-                  name="phone" formControlName="phone">
+                  class="form-control"
+                   id="phone"
+                  name="phone" 
+                  formControlName="phone"
+                  >
               <div *ngIf="isInvalidForm('phone')"
                   class="alert alert-danger">
                   <div *ngIf="registerForm.controls['phone'].errors.required">
