@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
 import{HttpErrorResponse} from '@angular/common/http'
@@ -10,6 +10,7 @@ import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
@@ -27,36 +28,48 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(){
     this.initForm();
-
   }
 
-  initForm() {
+  initForm():void {
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required,
-                   Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]],
+    
       deviceId:'12345',
       devType:3,
       termsAndCond	:1,
       loginType: 1,
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required],this.isPhoneUnique.bind(this)],
+      email: ['', [Validators.required,
+        Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')],this.isEmailUnique.bind(this)],
       password: ['', [Validators.required,Validators.minLength(7)]]
     })
   }
 
+  isEmailUnique(control: FormControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.auth.emailValidation(control.value).subscribe(() => {
+          resolve(null);
+        }, () => { resolve({ 'isEmailUnique': true }); });
+      }, 1000);
+    });
+    return q;
+  }
 
-
-  emailValidation(){
-    console.log("hhgjhgjh")
+  isPhoneUnique(control: FormControl){
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.auth.PhoneNumberValidation(control.value).subscribe(() => {
+          resolve(null);
+        }, () => { resolve({ 'isPhoneUnique': true }); });
+      }, 1000);
+    });
+    return q;
   }
 
   verifyPhoneNumber(){
-
-  }
-
-  PhoneNumberValidation(){
-
+    
   }
 
 
@@ -72,7 +85,7 @@ export class RegisterComponent implements OnInit {
   register(){
     this.auth.register(this.registerForm.value).subscribe(
       (userData)=>{
-        console.log(userData);
+        this.router.navigate(['/verify']);
       },
       (errorResponse:HttpErrorResponse)=>{
         this.errors = errorResponse.error.errors;

@@ -1,6 +1,7 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, pipe } from 'rxjs';
+import { HttpClient,HttpHeaders,HttpResponse } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -11,22 +12,28 @@ export class AuthService {
     
     Object.entries(userData).map(([key, value]) => [key, value ])
     let phoneNumber=userData.phone.number;
-    let countryCode= userData.phone['countryCode'];
+    let countryCode= userData.phone.countryCode;
     userData.phone=phoneNumber;
     userData.countryCode=countryCode;
-    return this.http.post('https://dev-api.service-genie.xyz/customer/registerUser', userData);
+
+    return this.http.post('https://dev-api.service-genie.xyz/customer/registerUser', userData)
   }
 
-  // private emailValidation(email:string):Observable<any>{
-  //   console.log(email);
-  //   return this.http.post('https://dev-api.service-genie.xyz/customer/emailValidation',email);
-  // }
+  emailValidation(email:string){
+    return this.http.post('https://api.service-genie.xyz/customer/emailValidation',{email})
+  }
 
-  // private verifyPhoneNumber(userId:string):Observable<any>{
-  //   return this.http.post('https://dev-api.service-genie.xyz/customer/verifyPhoneNumber',userId)
-  // }
+  verifyPhoneNumber(userId:string){
+    return this.http.post('https://dev-api.service-genie.xyz/customer/verifyPhoneNumber',userId).pipe(map(
+      (userId:string)=>console.log(userId))
+    )
+  }
 
-  // private PhoneNumberValidation(phone:string,countryCode:string):Observable<any>{
-  //   return this.http.post('https://dev-api.service-genie.xyz/customer/phoneNumberValidation',{phone,countryCode})
-  // }
+  PhoneNumberValidation(userData:string){
+    Object.entries(userData).map(([key, value]) => [key, value ])
+    let phone=userData['number'];
+    let countryCode=userData['countryCode'];
+    return this.http.post('https://dev-api.service-genie.xyz/customer/phoneNumberValidation',{phone,countryCode})
+  }
+ 
 }

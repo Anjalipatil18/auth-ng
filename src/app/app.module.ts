@@ -10,15 +10,18 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing.module';
 import{AuthModule} from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VerifyComponent } from './verify/verify.component';
 
 const routes:Routes=[
-  {path:'',redirectTo:'/register',pathMatch:'full'}
+  {path:'',redirectTo:'/register',pathMatch:'full'},
+  {path:'verify',component:VerifyComponent}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    VerifyComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
