@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(){
     this.initForm();
+
   }
 
   initForm() {
@@ -43,6 +44,21 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required,Validators.minLength(7)]]
     })
   }
+
+
+
+  emailValidation(){
+    console.log("hhgjhgjh")
+  }
+
+  verifyPhoneNumber(){
+
+  }
+
+  PhoneNumberValidation(){
+
+  }
+
 
   isInvalidForm(fieldName): boolean {
     return this.registerForm.controls[fieldName].invalid &&

@@ -16,4 +16,17 @@ export class AuthService {
     userData.countryCode=countryCode;
     return this.http.post('https://dev-api.service-genie.xyz/customer/registerUser', userData);
   }
+
+  // private emailValidation(email:string):Observable<any>{
+  //   console.log(email);
+  //   return this.http.post('https://dev-api.service-genie.xyz/customer/emailValidation',email);
+  // }
+
+  // private verifyPhoneNumber(userId:string):Observable<any>{
+  //   return this.http.post('https://dev-api.service-genie.xyz/customer/verifyPhoneNumber',userId)
+  // }
+
+  // private PhoneNumberValidation(phone:string,countryCode:string):Observable<any>{
+  //   return this.http.post('https://dev-api.service-genie.xyz/customer/phoneNumberValidation',{phone,countryCode})
+  // }
 }
