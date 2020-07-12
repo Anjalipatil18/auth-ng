@@ -6,6 +6,8 @@ import { HttpClient,HttpHeaders,HttpResponse } from '@angular/common/http';
 @Injectable()
 export class AuthService {
 
+  private result;
+
   constructor(private http: HttpClient) {}
 
   public register(userData: any): Observable<any> {
@@ -16,17 +18,23 @@ export class AuthService {
     userData.phone=phoneNumber;
     userData.countryCode=countryCode;
 
-    return this.http.post('https://dev-api.service-genie.xyz/customer/registerUser', userData)
+    return this.http.post('https://dev-api.service-genie.xyz/customer/registerUser', userData).pipe(map(
+      (response:any)=> {
+       this.result = response
+      }
+    ))
   }
 
   emailValidation(email:string){
     return this.http.post('https://api.service-genie.xyz/customer/emailValidation',{email})
   }
 
-  verifyPhoneNumber(userId:string){
-    return this.http.post('https://dev-api.service-genie.xyz/customer/verifyPhoneNumber',userId).pipe(map(
-      (userId:string)=>console.log(userId))
-    )
+  public verifyPhoneNumber(userData:any): Observable<any>{
+    let userId = this.result.data.sid;
+    let expireOtp = this.result.data.expireOtp;
+    userData.userId=userId;
+  
+    return this.http.post('https://dev-api.service-genie.xyz/customer/verifyPhoneNumber',userData)
   }
 
   PhoneNumberValidation(userData:string){

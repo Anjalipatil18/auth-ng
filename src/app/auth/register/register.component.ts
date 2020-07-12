@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
     
       deviceId:'12345',
       devType:3,
-      termsAndCond	:1,
+      termsAndCond:1,
       loginType: 1,
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -68,11 +68,6 @@ export class RegisterComponent implements OnInit {
     return q;
   }
 
-  verifyPhoneNumber(){
-    
-  }
-
-
   isInvalidForm(fieldName): boolean {
     return this.registerForm.controls[fieldName].invalid &&
            (this.registerForm.controls[fieldName].dirty || this.registerForm.controls[fieldName].touched)
@@ -84,13 +79,12 @@ export class RegisterComponent implements OnInit {
 
   register(){
     this.auth.register(this.registerForm.value).subscribe(
-      (userData)=>{
-        this.router.navigate(['/verify']);
+      (userId)=>{
+        this.router.navigate(['/verify'])
       },
       (errorResponse:HttpErrorResponse)=>{
         this.errors = errorResponse.error.errors;
-       } )
-      
+       }) 
   }  
 
 }
