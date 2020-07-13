@@ -17,8 +17,8 @@ export class VerifyPhoneNumberComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-
   }
+  
   initForm(){
     this.form=this.fb.group({
       code:1111
