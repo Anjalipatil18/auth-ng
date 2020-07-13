@@ -10,7 +10,7 @@ import { CountdownModule } from 'ngx-countdown';
 import{AuthComponent} from './auth.component';
 import{RegisterComponent} from './register/register.component';
 import {AuthService} from './shared/auth.service';
-import { VerifyPhoneNumberComponent } from './verify-phone-number/verify-phone-number.component';
+import { VerifyPhoneNumberComponent,FormatTimePipe } from './verify-phone-number/verify-phone-number.component';
 import { HomeComponent } from './home/home.component';
 
 const routes:Routes=[
@@ -24,7 +24,8 @@ const routes:Routes=[
     AuthComponent,
     RegisterComponent,
     VerifyPhoneNumberComponent,
-    HomeComponent
+    HomeComponent,
+    FormatTimePipe
     
   ],
   imports: [

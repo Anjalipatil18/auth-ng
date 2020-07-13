@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {AuthService} from '../shared/auth.service'
 import {Router} from '@angular/router';
+import { timer, Subscription } from "rxjs";
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Component({
   selector: 'auth-verify-phone-number',
@@ -10,6 +12,9 @@ import {Router} from '@angular/router';
 })
 export class VerifyPhoneNumberComponent implements OnInit {
   form:FormGroup;
+  countDown: Subscription;
+  counter = 650;
+  tick = 1000;
 
   constructor(private auth:AuthService,
               private router:Router,
@@ -17,8 +22,13 @@ export class VerifyPhoneNumberComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.countDown = timer(0, this.tick).subscribe(() => --this.counter);
+
   }
-  
+  ngOnDestroy(){
+    this.countDown=null;
+  }
+
   initForm(){
     this.form=this.fb.group({
       code:1111
@@ -30,7 +40,22 @@ export class VerifyPhoneNumberComponent implements OnInit {
       (userId)=>{
         this.router.navigate(['/home'])
       }
-    )
-    
+    ) 
   }
 }
+
+@Pipe({
+  name: "formatTime"
+})
+
+export class FormatTimePipe implements PipeTransform {
+  transform(value: number): string {
+    const minutes: number = Math.floor(value / 60);
+    return (
+      ("00" + minutes).slice(-2) +
+      ":" +
+      ("00" + Math.floor(value - minutes * 60)).slice(-2)
+    );
+  }
+}
+
