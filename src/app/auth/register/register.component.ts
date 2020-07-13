@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
       loginType: 1,
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phone: ['', [Validators.required]],
+      phone: ['', [Validators.required],this.isPhoneUnique.bind(this)],
       email: ['', [Validators.required,
         Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')],this.isEmailUnique.bind(this)],
       password: ['', [Validators.required,Validators.minLength(7)]]
@@ -56,16 +56,16 @@ export class RegisterComponent implements OnInit {
     return q;
   }
 
-  // isPhoneUnique(control: FormControl) {
-  //   const q = new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       this.auth.PhoneNumberValidation(control.value).subscribe(() => {
-  //         resolve(null);
-  //       }, () => { resolve({ 'isPhoneUnique': true }); });
-  //     }, 1000);
-  //   });
-  //   return q;
-  // }
+  isPhoneUnique(control: FormControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.auth.PhoneNumberValidation(control.value).subscribe(() => {
+          resolve(null);
+        }, () => { resolve({ 'isPhoneUnique': true }); });
+      }, 1000);
+    });
+    return q;
+  }
 
   isInvalidForm(fieldName): boolean {
     return this.registerForm.controls[fieldName].invalid &&
