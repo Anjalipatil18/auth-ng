@@ -55,7 +55,7 @@
                   name="phone" 
                   formControlName="phone"
                   >
-              <div *ngIf="isInvalidForm('phone')"
+                <div *ngIf="isInvalidForm('phone')"
                   class="alert alert-danger">
                   <div *ngIf="registerForm.controls['phone'].errors.required">
                     Phone is required.
@@ -64,8 +64,8 @@
                   <div *ngIf="registerForm.get('phone').hasError('isPhoneUnique')">
                    Already used this phoneNumber 
                   </div>
-              </div>
-              </ngx-intl-tel-input>
+                </div>
+                </ngx-intl-tel-input>
           </div>
 
           <div class="form-group">

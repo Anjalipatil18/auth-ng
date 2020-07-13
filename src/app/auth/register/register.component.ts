@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
     return q;
   }
 
-  // isPhoneUnique(control: FormControl){
+  // isPhoneUnique(control: FormControl) {
   //   const q = new Promise((resolve, reject) => {
   //     setTimeout(() => {
   //       this.auth.PhoneNumberValidation(control.value).subscribe(() => {

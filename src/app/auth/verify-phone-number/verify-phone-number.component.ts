@@ -28,7 +28,6 @@ export class VerifyPhoneNumberComponent implements OnInit {
   onSubmit() {
     this.auth.verifyPhoneNumber(this.form.value).subscribe(
       (userId)=>{
-        console.log(userId)
         this.router.navigate(['/home'])
       }
     )

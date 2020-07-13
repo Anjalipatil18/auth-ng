@@ -10,6 +10,7 @@
                    class="form-control"
                    id="code"
                    formControlName=code>
+            <countdown [config]="{leftTime: 30}"></countdown>
           </div>
           <button [disabled]="!form.valid" type="submit" class="btn btn-bwm">Submit</button>
         </form>
